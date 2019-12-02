@@ -17,26 +17,26 @@ namespace SimplyCalculator_v2.Calculation
 
             foreach (var group in operationGroupedByPriorities)
             {
-                for (int positionOfChar = 0; positionOfChar < evaluationInput.Count(); positionOfChar++)
+                for (int charPosition = 0; charPosition < evaluationInput.Count(); charPosition++)
                 {
-                    string currentChar = evaluationInput.ElementAt(positionOfChar);
+                    string currentChar = evaluationInput.ElementAt(charPosition);
 
                     if (group.Any(g=>g.Value.GetOperationSymbol() == currentChar) )
                     {
-                        var concretPriority = GetOperationPiorityGroup(currentChar, group, positionOfChar);
+                        var concretPriority = GetOperationPriorityGroup(currentChar, group, charPosition);
 
                         if (concretPriority.Equals(new KeyValuePair<int, IOperation>()))
                             throw new Exception("no operation");
 
                         var operation = concretPriority.Value;
 
-                        var result = operation.Calculate(evaluationInput, positionOfChar);
+                        var result = operation.Calculate(evaluationInput, charPosition);
 
                         var transformationStrategy = operation.GetTransformation();
 
-                        transformationStrategy.TransformOrginalExpresion(result, evaluationInput, positionOfChar);
+                        transformationStrategy.TransformOrginalExpresion(result, evaluationInput, charPosition);
 
-                        positionOfChar = 0;
+                        charPosition = 0;
 
                     }
                 }
@@ -45,7 +45,7 @@ namespace SimplyCalculator_v2.Calculation
             return evaluationInput;
         }
 
-        private KeyValuePair<int, IOperation> GetOperationPiorityGroup(string currentChar, IGrouping<int, KeyValuePair<int, IOperation>> group, int positionOfChar)
+        private KeyValuePair<int, IOperation> GetOperationPriorityGroup(string currentChar, IGrouping<int, KeyValuePair<int, IOperation>> group, int positionOfChar)
         {
             return group.FirstOrDefault(g => g.Value.GetOperationSymbol() == currentChar);
         }

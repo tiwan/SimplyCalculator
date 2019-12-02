@@ -17,11 +17,7 @@ namespace SimplyCalculator_v2.InputParser
         public List<string> ParseToList(string userInput)
         {
             return  validateInput(parseInput(userInput));
-
         }
-
-  
-
 
         private List<string> parseInput(string input)
         {
@@ -46,9 +42,7 @@ namespace SimplyCalculator_v2.InputParser
             }
 
             if (start < input.Length)
-            {
                 yield return input.Substring(start);
-            }
         }
 
         private List<string> validateInput(List<string> inputList)
@@ -68,11 +62,9 @@ namespace SimplyCalculator_v2.InputParser
 
                 if(double.TryParse(inputElemnt, out param) == false)
                     throw new Exception("invalid expresion in input");
-
             }
 
             return inputList;
-
         }
     }
 }

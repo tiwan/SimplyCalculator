@@ -24,7 +24,7 @@ namespace SimplyCalculator_v2.UI
         public void MainLoop()
         {
             var inputParser = _container.Resolve<IInputParserService>();
-            var piorityService = _container.Resolve<IPriorityService>();
+            var priorityService = _container.Resolve<IPriorityService>();
             var operationFactory = _container.Resolve<IOperationFactory>();
             var calculationService = _container.Resolve<ICalculationService>();
 
@@ -33,7 +33,7 @@ namespace SimplyCalculator_v2.UI
             SetupInputParser(inputParser);
 
             /// Setup custom priority for avaible operations
-            SetupPriority(piorityService, operationFactory);
+            SetupPriority(priorityService, operationFactory);
 
             while (true)
             {
@@ -48,7 +48,7 @@ namespace SimplyCalculator_v2.UI
 
                     var charArray = inputParser.ParseToList(userInput);
 
-                    var result = calculationService.Calculate(charArray.ToList(), piorityService);
+                    var result = calculationService.Calculate(charArray.ToList(), priorityService);
 
                     Console.WriteLine("Result: " + result.First());
                 }
